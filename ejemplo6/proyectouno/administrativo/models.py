@@ -43,9 +43,11 @@ class Modulo(models.Model):
     nombre = models.CharField(max_length=30, \
             choices=opciones_modulo)
     estudiantes = models.ManyToManyField(Estudiante, through='Matricula')
+    costo_modulo = models.IntegerField("Costo modulo")
+
 
     def __str__(self):
-        return "Módulo: %s" % (self.nombre)
+        return "Módulo: %s - Costo modulo: (%d)" % (self.nombre, self.costo_modulo)
 
 
 class Matricula(models.Model):
@@ -58,5 +60,5 @@ class Matricula(models.Model):
     comentario = models.CharField(max_length=200)
 
     def __str__(self):
-        return "Matricula: Estudiante(%s) - Modulo(%s)" % \
-                (self.estudiante, self.modulo.nombre)
+        return "Matricula: Estudiante(%s) - Modulo(%s) - Costo modulo(%d)" % \
+                (self.estudiante, self.modulo.nombre, self.modulo.costo_modulo)
